@@ -32,8 +32,7 @@ https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
 http://genesdev.cshlp.org/content/11/7/815.full.pdf
 
 The methods I will use to do this are...
-I will need to download sequence data for certain PQC genes, align them, and construct a phylogenetic tree. I'm wondering if I can create a tree where each edge represents a specific PQC protein. I imagine I would have to collect a lot of sequences of this homologous protein across species and then create some kind of average estimate of its placement with respect to other proteins. I can create the tree using R and iqtree with the methods we have used in class thus far. I can also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. However, I have no idea how I will organize my collection of homologous protein sequences into one input to map on a tree. 
-
+I will need to download sequence data for certain PQC genes, align them, and construct a phylogenetic tree. I'm wondering if I can create a tree where each edge represents a specific PQC protein. I imagine I would have to collect a lot of sequences of this homologous protein across species and then create some kind of average estimate of its placement with respect to other proteins. I can create the tree using R and iqtree with the methods we have used in class thus far. I can also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. However, I'm not sure yet how I will organize my collection of homologous protein sequences into one input to map on a tree. 
 
 For the purpose of this project, the data I will use are publicly available at NCBI. Some of the most well-studied PQC systems are in E. coli (GroEL, GroES, Lon) so I think that would be a good place to start. However, I would love some input on how far I should expand this question (to other bacteria, other microbes, all animals?)
 
