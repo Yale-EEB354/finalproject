@@ -22,6 +22,8 @@ OK, here we go.
 
 # Title of my project
 
+This is Dalton by the way. I'm auditing, so I won't be doing a final project per-se, but I am exited to be exploring molecular methods. What I would like to do is perform a total evidence analysis using the morphological squamate matrix I currently have, adding genomic data to it. As well as perfrom the clean-up/gene selection steps outlined in Koch and Thompson's 2020 echinoderm phylogeny.
+
 ## Introduction and Goals
 
 The goal of my project is to answer the question, What is...?
