@@ -39,6 +39,12 @@ I will be limited by what is publicly available, but I hope to implement the met
 
 ## Methods
 
+Species, chaperones, proteases
+Escherichia coli
+Microcystis aeruginosa, DnaJ, 
+Bacillus subtilis
+
+
 The tools I used were... See analysis files at (links to analysis files).
 
 ## Results
