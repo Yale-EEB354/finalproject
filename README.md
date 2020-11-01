@@ -31,15 +31,15 @@ https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
 http://genesdev.cshlp.org/content/11/7/815.full.pdf
 
 The methods I will use to do this are...
-I will start by gathering protein sequence data on NCBI for some of the main proteases essential to E. coli, then expand to other bacteria. 
-The E. coli proteases I will use are: ftSH, rseP, lepB, and lspA, ClpP, and Lon. 
-Then, I will gather protein sequence data on NCBI for some of the chaperones and co-chaperones essential to E. coli, then expand to other bacteria.
-The E. coli proteases I will use are: GroEL, GroES....
+I will start by gathering protein sequence data on NCBI. I will find a region within Lon protease that has a high consensus with other microbes. Some of the main proteases essential to E. coli, then expand to other bacteria. 
+A protease I will start with is: Lon. 
+Then, I will gather protein sequence data on NCBI for some of the chaperones and co-chaperones essential to E. coli, then expand to other microbes.
+The chaperone and Co-chaperone I will start with are: GroEL, GroES....
 
 For the minimum viable analysis, I will use the ___________ domain protein sequence from Lon protease to run BLAST and search for homologous regions in other proteases in different bacteria. 
 I will upload this data to the Yale computing cluster (Grace), then run IQ-tree to make a phylogenetic tree of the homologous proteases from different bacteria. 
 
-Thus, Each edge will represent a specific (homologous) protein region from different bacteria. I will run a bootstrap analysis and label my tree with the bootstrap values. I will also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. 
+Thus, each edge will represent a specific (homologous) protein region from different bacteria. I will run a bootstrap analysis and label my tree with the bootstrap values. I will also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. 
 
 I might use archaea as an outgroup?
 
@@ -47,10 +47,9 @@ I will be limited by what is publicly available, but I hope to implement the met
 
 ## Methods
 
-Species, chaperones, proteases
-Escherichia coli
-Microcystis aeruginosa, DnaJ, 
-Bacillus subtilis
+First, I searched for a conserved protein domain family in Lon protease on the National Center for Biotechnology (NCBI) website. I chose the region that had the highest consensus 
+The microbes and regions I found were:
+
 
 
 The tools I used were... See analysis files at (links to analysis files).
