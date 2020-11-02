@@ -45,20 +45,10 @@ I will be limited by what is publicly available, but I hope to implement the met
 
 ## Methods
 
-First, I searched for a conserved protein domain family in Lon protease on the National Center for Biotechnology (NCBI) website. I am using COG0466, ATp-dependent Lon Protease. NCBI produced a sequence alignment across multiple 
+First, I searched for Lon protease in e coli on NCBI. I selected AAC36871.1 for my query ID and BLASTed (BLASTP) it using the protein database (PDB) for all prokaryotes. 
 
-I chose the region that had the highest consensus at 3.0 bit.
-The microbes and regions I found were:
-585414, 693-772, LONM_YEAST Saccharomyces cerevisiae S288C
-2499848, 450-528,
-15893747, 409-487,
-6225631, 454-532,
-6225632, 453-531,
-2499849, 428-506,
-20090712, 419-497,
-15595976, 444-522,
-1170811,639-717,
-12230210, 428-506, 
+I selected nine of the most diverse species available and chose the sequences among those species that had the highest coverage from the query.
+I downloaded the aligned file in fasta format. 
 
 
 
