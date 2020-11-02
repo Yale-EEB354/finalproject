@@ -58,7 +58,9 @@ I created an rmd file and made a phylogenetic tree of my species based on the Lo
 THINGS THAT I NEED TO FIX and NEXT STEPS:
 My phylogeny doesn't really make sense because I have two E. coli sequences that are mapped sooooo distantly from each other (moreso than everything else). I'm guessing this is an error with a sequence I chose from NCBI (maybe one of them was not truly an E. coli protease sequence, but a sequence from another species that had been transformed into E. coli)
 
-The tools I used were... See analysis files at (links to analysis files).
+Next, I searched for a GroEL chaperonin on NCBI. I selected WP_000729117.1 for my query ID and BLASTed it (BLASTP) under the same filters as Lon protease: pdb, prokaryotes. 
+
+I selected 
 
 ## Results
 
