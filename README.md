@@ -60,6 +60,8 @@ My phylogeny doesn't really make sense because I have two E. coli sequences that
 
 Next, I searched for a GroEL chaperonin on NCBI. I selected WP_000729117.1 for my query ID and BLASTed it (BLASTP) under the same filters as Lon protease: pdb, prokaryotes. 
 
+I also added "filters". My filters were the genu and species names of all bacteria whose sequences I used in my Lon protease analysis. My results yielded sequences for E. coli, Mycobacterium tuberculosis, and Thermus thermophilus.
+
 I selected 
 
 ## Results
