@@ -31,9 +31,9 @@ https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
 http://genesdev.cshlp.org/content/11/7/815.full.pdf
 
 The methods I will use to do this are...
-I will start by gathering protein sequence data on NCBI. I will find a region within Lon protease that has a high consensus with other microbes. Some of the main proteases essential to E. coli, then expand to other bacteria. 
+I will start by gathering protein sequence data on NCBI. I will find a region within Lon protease that has a high consensus with other microbes. 
 A protease I will start with is: Lon. 
-Then, I will gather protein sequence data on NCBI for some of the chaperones and co-chaperones essential to E. coli, then expand to other microbes.
+Then, I will gather protein sequence data on NCBI for a chaperone and co-chaperone.
 The chaperone and Co-chaperone I will start with are: GroEL, GroES....
 
 For the minimum viable analysis, I will use the ___________ domain protein sequence from Lon protease to run BLAST and search for homologous regions in other proteases in different bacteria. 
@@ -41,14 +41,24 @@ I will upload this data to the Yale computing cluster (Grace), then run IQ-tree 
 
 Thus, each edge will represent a specific (homologous) protein region from different bacteria. I will run a bootstrap analysis and label my tree with the bootstrap values. I will also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. 
 
-I might use archaea as an outgroup?
-
 I will be limited by what is publicly available, but I hope to implement the methods I learn in this project on my own sequence data as my thesis progresses. This will ultimately be sequence data from nearshore bacterial communities in the Long Island Sound. 
 
 ## Methods
 
-First, I searched for a conserved protein domain family in Lon protease on the National Center for Biotechnology (NCBI) website. I chose the region that had the highest consensus 
+First, I searched for a conserved protein domain family in Lon protease on the National Center for Biotechnology (NCBI) website. I am using COG0466, ATp-dependent Lon Protease. NCBI produced a sequence alignment across multiple 
+
+I chose the region that had the highest consensus at 3.0 bit.
 The microbes and regions I found were:
+585414, 693-772, LONM_YEAST Saccharomyces cerevisiae S288C
+2499848, 450-528,
+15893747, 409-487,
+6225631, 454-532,
+6225632, 453-531,
+2499849, 428-506,
+20090712, 419-497,
+15595976, 444-522,
+1170811,639-717,
+12230210, 428-506, 
 
 
 
