@@ -51,7 +51,12 @@ I selected nine of the most diverse species available from the results and chose
 I downloaded the aligned file in fasta format and updated the header to label Genus_species_SequenceID (lon.renamed.fasta). 
 I then uploaded this file to the cluster, as well as two job scripts I had made usint MAFFT for alignment and IQtree and analyzation. 
 
+I ran my job scripts, creating an aligned file, then ran IQTREE. 
 
+I created an rmd file and made a phylogenetic tree of my species based on the Lon protease sequences.
+
+THINGS THAT I NEED TO FIX and NEXT STEPS:
+My phylogeny doesn't really make sense because I have two E. coli sequences that are mapped sooooo distantly from each other (moreso than everything else). I'm guessing this is an error with a sequence I chose from NCBI (maybe one of them was not truly an E. coli protease sequence, but a sequence from another species that had been transformed into E. coli)
 
 The tools I used were... See analysis files at (links to analysis files).
 
