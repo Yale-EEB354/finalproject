@@ -66,6 +66,8 @@ I have six total protein sequences for GroEL, which I aligned and analyzed using
 
 Next I created two small phylogenetic trees of each of these in Rstudio. I checked to see if the trees were rooted/the same (which I knew they weren't), but this will provide me with useful way to check once I find an appropriate outgroup to add to my trees. This is important so that I can make accurate statements about the divergence rates of chaperones and proteases.
 
+I calculated the edgelengths using phytools and once I properly reroot my trees, I will be able to compare the edgelengths (from root to tip of proteins from the same species) with each other to infer differences in evolution rate. 
+
 
 
 ## Results
