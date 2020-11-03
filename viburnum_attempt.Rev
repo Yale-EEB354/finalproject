@@ -1,0 +1,107 @@
+mo################################################################################
+#
+# RevBayes Example: Bayesian inference of phylogeny using a GTR+Gamma+Inv
+#                   substitution model on a single gene.
+#
+# authors: Sebastian Hoehna, Michael Landis, and Tracy A. Heath
+#
+################################################################################
+
+
+### Read in sequence data for the gene
+data = readDiscreteCharacterData("data/viburnum.mol.nex")
+
+# Get some useful variables from the data. We need these later on.
+#num_taxa <- data.ntaxa()
+#num_branches <- 2 * num_taxa - 3
+#taxa <- data.taxa()
+taxa = readTaxonData("data/viburnum.taxa.tsv")
+n_taxa = taxa.size()
+n_branches = 2 * n_taxa - 3
+
+moves    = VectorMoves()
+monitors = VectorMonitors()
+
+
+######################
+# Substitution Model #
+######################
+
+# specify the stationary frequency parameters
+pi_prior <- v(1,1,1,1) 
+pi ~ dnDirichlet(pi_prior)
+moves.append( mvBetaSimplex(pi, weight=2.0) )
+moves.append( mvDirichletSimplex(pi, weight=1.0) )
+
+
+# specify the exchangeability rate parameters
+er_prior <- v(1,1,1,1,1,1)
+er ~ dnDirichlet(er_prior)
+moves.append( mvBetaSimplex(er, weight=3.0) )
+moves.append( mvDirichletSimplex(er, weight=1.5) )
+
+
+# create a deterministic variable for the rate matrix, GTR
+Q := fnGTR(er,pi) 
+
+
+
+##############
+# Tree model #
+##############
+
+out_group = clade("V_clemensiae")
+# Prior distribution on the tree topology
+topology ~ dnUniformTopology(taxa, outgroup=out_group)
+moves.append( mvNNI(topology, weight=n_taxa/2.0) )
+moves.append( mvSPR(topology, weight=n_taxa/10.0) )
+
+# Branch length prior
+for (i in 1:n_branches) {
+    br_lens[i] ~ dnExponential(10.0)
+    moves.append( mvScale(br_lens[i]) )
+}
+
+TL := sum(br_lens)
+
+psi := treeAssembly(topology, br_lens)
+
+
+
+
+###################
+# PhyloCTMC Model #
+###################
+
+# the sequence evolution model
+seq_mol[i] ~ dnPhyloCTMC(tree=psi, Q=Q, type="DNA")
+
+# attach the data
+seq_mol[i].clamp(data)
+
+
+############
+# Analysis #
+############
+
+mymodel = model(psi)
+
+# add monitors
+monitors.append( mnScreen(TL, printgen=100) )
+monitors.append( mnFile(psi, filename="output_gtr/primates_cytb_GTR.trees", printgen=10) )
+monitors.append( mnModel(filename="output_gtr/primates_cytb_GTR.log", printgen=10) )
+
+# run the analysis
+mymcmc = mcmc(mymodel, moves, monitors)
+mymcmc.run(generations=10000)
+
+
+# summarize output
+treetrace = readTreeTrace("output_gtr/viburnum.trees", treetype="non-clock")
+# and then get the MAP tree
+map_tree = mapTree(treetrace,"output_gtr/viburnum.tre")
+
+
+# you may want to quit RevBayes now
+q()
+
