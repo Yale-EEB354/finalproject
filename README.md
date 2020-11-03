@@ -10,6 +10,11 @@ Working alongside Aleca, I plan to construct an initial maximum liklihood phylog
 H and I cell data has been collected by Aleca and other members of the Brodersen lab. RADSeq data is available on Dryad.
 
 ## Methods
+Bayesian Tree Analysis: Using the mcmc_GTR.Rev script, a Bayesian tree was produced from the 173 species and 10 gene matrices. Data was stored in nexus file types, which require additional work to remove individual genes from. The script was based on Michael Landis' mol_model.Rev script uploaded in a slightly edited form here. One of the other attempts is also saved in a seperate .rev file.  
+
+Maximum Likelihood Tree: Using the ITS gene from the Viburnum data (saved as a seperate fasta file), a ML and IQTree were produced. These follow the most simplistic GTR script.
+
+Comparative Trait Evolution: Two seperate R files are uploaded here as saved attempts, both are based on Dean Adam's R scripts attempting to determine covariance of traits through time. Trait_evolution.r is the older attempt, and trait_covariance is the newer. They use the two excel files with randomized data within ceratin distributions to represent vein density, vein width, cell volume, and cell surface area. These were used in combination with the ML tree to find the Phylogenetic least squares and plot variation of trait evolution thorugh tree space.
 
 ## Results
 
