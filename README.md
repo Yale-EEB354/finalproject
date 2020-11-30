@@ -45,7 +45,7 @@ I will be limited by what is publicly available, but I hope to implement the met
 
 ## Methods
 
-First, I searched for Lon protease in E coli on NCBI. I selected AAC36871.1 for my query ID and BLASTed it (BLASTP) using the protein database (PDB) for all prokaryotes. 
+First, I searched for Lon protease in E coli on NCBI. I selected AAC36871.1 for my query ID and BLASTed it (BLASTP) using the protein database (PDB) for all prokaryotes (taxid 2). 
 
 I selected nine of the most diverse species available from the results and chose the sequences among those species that had the highest coverage from the query.
 I downloaded the aligned file in fasta format and updated the header to label Genus_species_SequenceID (lon.renamed.fasta). 
