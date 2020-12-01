@@ -44,23 +44,28 @@ I also added "filters". My filters were the genus and species names of all bacte
 
 I have six total protein sequences for GroEL, which I aligned and analyzed using MAFFT and IQTREE, with the same job scripts as for Lon protease. 
 
-Next I created two small phylogenetic trees of each of these in Rstudio. I checked to see if the trees were rooted/the same (which I knew they weren't), but this will provide me with useful way to check once I find an appropriate outgroup to add to my trees. This is important so that I can make accurate statements about the divergence rates of chaperones and proteases.
+The models used for the analyses of Lon and GroEL were LG + GR and LG + F + G4, respectively.
 
-I calculated the edgelengths using phytools and once I properly reroot my trees, I will be able to compare the edgelengths (from root to tip of proteins from the same species) with each other to infer differences in evolution rate. 
+Next I created two small phylogenetic trees of each of these in Rstudio. I rooted my trees with E. coli and checked with the is.root() function. This is important so that I can make accurate statements about the divergence rates of chaperones and proteases. I then made each tree ultrametric. 
 
+I calculated the edgelengths using phytools, then made an excel file to normalize each edge length to the edge length of E. coli. 
+
+Then I completed F and T tests (see results). 
 
 
 ## Results
 
-The tree in Figure 1...
+The tree in Figure 1 is Lon protease and the tree in Figure 2 is GroEL chaperone. I did an F test to look for significant difference in edge length within each tree. This measured the variance in evolution rate of Lon across species. It also measured the variance in evolution rate of GroEL across species. The p-value was 0.8953, meaning there was no significant difference in rate evolution across species within each tree. 
+
+Then I did a T test to look for significant diferences in edge lengths between the two trees (Lon and protease). This answers the overall question of my project. The p-value was 0.264, not significant. 
 
 ## Discussion
 
-These results indicate...
+These results indicate that evolution rate between Lon and GroEL was not statistically different. 
 
-The biggest difficulty in implementing these analyses was...
+The biggest difficulty in implementing these analyses was figuring out how to normalize the edge lengths and make sure I was appropriately comparing edge lengths between two different trees (I'm sure there is a better way than I did). 
 
-If I did these analyses again, I would...
+If I did these analyses again, I would include way more bacteria with an outgroup in eukaryota or archaea. I would also couple another characteristic of my bacteria to these proteins. 
 
 ## References
 
