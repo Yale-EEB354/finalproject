@@ -69,3 +69,5 @@ If I did these analyses again, I would include way more bacteria with an outgrou
 https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
 
 http://genesdev.cshlp.org/content/11/7/815.full.pdf
+
+https://academic.oup.com/mbe/article/25/7/1307/1041491
