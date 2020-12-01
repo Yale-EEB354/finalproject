@@ -7,9 +7,6 @@
 The goal of my project is to answer the question, "Do proteases and chaperones evolve at a similar rate?"
 This question is prompted by a recent study available on bioRxiv on proteome expansion across the tree of life (Rebeaud et al., 2020). They write extensively about the evolution of chaperones and co-chaperones, but say little about proteases. However, it has been well-catalogued that chaperones and proteases play different (but arguably equally important) roles in maintaining proteostasis in a cell (Gottesman et al., 1997). Furthermore, the network of chaperones and proteases that make up protein quality control (PQC) networks are necessary for cell tolerance of perturbations, and, acting as a mechanism of robustness are thus a driving force of evolution. 
 
-https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
-http://genesdev.cshlp.org/content/11/7/815.full.pdf
-
 The methods I will use to do this are...
 I will start by gathering protein sequence data on NCBI. I will find a region within Lon protease that has a high consensus with other microbes. 
 A protease I will start with is: Lon. 
@@ -69,3 +66,6 @@ If I did these analyses again, I would include way more bacteria with an outgrou
 
 ## References
 
+https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
+
+http://genesdev.cshlp.org/content/11/7/815.full.pdf
