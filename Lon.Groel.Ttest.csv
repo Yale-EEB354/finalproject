@@ -1,0 +1,16 @@
+﻿protein ,edge,edge length,species,EL/ EL of outgroup,phylogeny,A,B
+Lon,1,1.0521435,Mycobacterium 6IHG A,0.767797968,A,0.767797968,5.82E-06
+,2,1.0521435,Thermus 4EIW A,0.767797968,A,0.767797968,5.82E-06
+,3,0.3181955,MRCA of 1 &2,0.232202032,A,0.232202032,5.83E-06
+,4,1.370339,Thermus 1IXS B,1,A,1,5.83E-06
+,5,0,MRCA of 4 & 6,0,A,0,8.35E-01
+,6,1.370339,Escherichia 6N2I A,1,A,1,8.35E-01
+,,,,,,,1.00E+00
+GroEL,1,2.00E-06,Thermus 1WE3 A,5.82E-06,B,,1.65E-01
+,2,2.00E-06,Thermus 1SRV A,5.82E-06,B,,
+,3,2.00E-06,Mycobacterium 3RTK A,5.83E-06,B,,
+,4,2.00E-06,Mycobacterium 1 SJP A,5.83E-06,B,,
+,5,2.86E-01,MRCA of 4 & 5,8.35E-01,B,,
+,6,2.86E-01,MRCA of 1 & 2,8.35E-01,B,,
+,7,3.43E-01,Escherichia K-12 5OPX A,1.00E+00,B,,
+,8,5.67E-02,MRCA of 7 & all,1.65E-01,B,,
