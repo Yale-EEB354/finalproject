@@ -14,58 +14,80 @@ vib_ult = force.ultrametric(vib_tree)
 state<-(c("H","I")[rep(c(1,2,1,1,2,1,1,1,1,2,1,2,2,1,2,1,1,1,1,1,1,1,2,2,1,2,2,1,2,1,2,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,2,2,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1))]);names(state)<-vib_ult$tip.label
 viburnum_tree<-make.simmap(vib_ult,state)
 plotSimmap(viburnum_tree)
-data=viburnum_h_data
-data1<-data[,c("Cell_Surf_Area", "Cell_Volume")]
+data=read.csv("viburnum_h_data - Copy.csv", row.names=1)
+data1<-data[,c("osmotic_full", "Cell_Volume")]
 data2<-data[,c("VLD_tot", "cap_full")]
-data3<-data[,c("stomata_density", "IAStot/leaf")]
-data4<-data[,c("trich_dens", "Amax")]
+data3<-data[,c("stomata_density", "Amax")]
+data4<-data[,c("trich_dens", "IAStot.leaf")]
 data5<-data[,c("epid_aba", "epid_ada")]
 data6<-data[,c("VLD_min", "rwc_loss")]
-data7<-data[,c("H_arml",  "Huber")]
+data7<-data[,c("chl.pal", "Huber")]
 data8<-data[,c("LMA", "Thick")]
 data9<-data[,c("xylem_area", "xylem_diam")]
-data10<-data[,c("3rd_width", "VLD_min")]
-data11<-data[,c("H_armnum", "H_arml")]
+data10<-data[,c("X3rd_width", "VLD_min")]
+#data11<-data[,c("H_armnum", "H_arml")]
 data12<-data[,c("osmotic_full","pot_loss")]
-data13<-data[,c("P_SA/V", "P_thick")]
+data13<-data[,c("P_SA.V", "P_thick")]
+data99<-data[,c("VLD_tot", "VLD_min", "pot_loss")]
+data14<-data[,c("P_Ames.A", "S_Ames.A")]
+data15<-data[,c("Palisade.1","Cell_Surf_Area")]
 
 #fit=mvBM(vib_ult,data$Cell_Surf_Area,model = "BMM")
-mvOU(viburnum_tree,data1, param = list(sigma="constraint", alpha="constraint"))
-mvOU(viburnum_tree, data2, param = list(sigma="constraint", alpha="constraint", decomp = c("qr+")))
-mvOU(viburnum_tree,data3)
+mvOU(viburnum_tree, data1)
+mvOU(viburnum_tree, data2)
+mvOU(viburnum_tree, data3)
 mvOU(viburnum_tree, data4)
-mvOU(viburnum_tree,data5)
+mvOU(viburnum_tree, data5)
 mvOU(viburnum_tree, data6)
-mvOU(viburnum_tree,data7)
+mvOU(viburnum_tree, data7)
+mvOU(viburnum_tree, data8)
+mvOU(viburnum_tree, data9)
+mvOU(viburnum_tree, data10)
+mvOU(viburnum_tree, data11)
+mvOU(viburnum_tree, data12)
+mvOU(viburnum_tree, data13)
+mvOU(viburnum_tree, data14)
+mvOU(viburnum_tree, data15)
 
-
-
-fit<-fastAnc(vib_tree, data$Amax)
-
-node_values = c( data$Amax, fit )
+#ancestral state reconstruction
+fit<-fastAnc(vib_ult, data$Amax)
+fit2<-fastAnc(vib_ult, data$P_SA.V)
+fit3<-fastAnc(vib_ult, data$Thick)
+fit4<-fastAnc(vib_ult, data$epid_aba)
+fit5<-fastAnc(vib_ult, data$epid_ada)
+fit6<-fastAnc(vib_ult, data$chl.pal)
+fit7<-fastAnc(vib_ult, data$IAStot.leaf)
+fit8<-fastAnc(vib_ult, data$S_Ames.A)
+node_values = c( data$S_Ames.A, fit8)
 
 vib_ggtree = ggtree( vib_ult )
 vib_ggtree + 
   geom_tippoint( aes(color=node_values), size=3, alpha=1 ) +
   geom_nodepoint(  aes(color=node_values), size=3, alpha=1 )
 
+#cool drawing stuff
+x = cbind(data$Amax, data$P_SA.V)
+#names(x)<-rownames(data)
+#phenogram(vib_ult,x,fsize=0.6,spread.costs=c(1,0))
+phylomorphospace(vib_ult, x)
 
-x = c(data$Amax, fit)
-phenogram(vib_tree,x,fsize=0.6,spread.costs=c(1,0))
 
-
+#h only data
 tip3<-c("V_davidii", "V_lentago", "V_carlesii", "V_elatum", "V_burejaeticum", "V_prunifolium", "V_bitchiuense", "V_propinquum", "V_utile", "V_cotinifolium", "V_veitchii", "V_clemensiae", "V_tinus", "V_macrocephalum", "V_rhytidophyllum", "V_cassinoides", "V_punctatum", "V_lantana", "V_cinnamomifolium", "V_cassinoides")
 vib_Htree=drop.tip(vib_tree, tip3)
-h_data = h_only
+h_data=read.csv("h_only.csv", row.names=1)
 
 fit44<-fastAnc(vib_Htree, h_data$H_armnum)
-node_values = c( h_data$H_armnum, fit44 )
+node_values = c( h_data$H_arml, fit45 )
+fit45<-fastAnc(vib_Htree, h_data$H_arml)
 
 h_ggtree = ggtree( h_ult )
 h_ggtree + 
   geom_tippoint( aes(color=node_values), size=3, alpha=1 ) +
   geom_nodepoint(  aes(color=node_values), size=3, alpha=1 )
 
+
+#wet only data
 tip4<-c("V_lobophyllum", "V_wrightii", "V_sargentii", "V_sieboldii", "V_furcatum", "V_lentago", "V_setigerum", "V_carlesii", "V_burejaeticum", "V_prunifolium", "V_rufidulum", "V_bracteatum", "V_rafinesquianum", "V_acerifolium", "V_bitchiuense", "V_opulus", "V_veitchii", "V_dilatatum", "V_erosum", "V_dentatum", "V_ichangense", "V_betulifolium", "V_rhytidophyllum", "V_molle", "V_trilobum", "V_hupehense", "V_cassinoides", "V_plicatum", "V_lantana")
 wet_tree = keep.tip(vib_tree, tip4)
 ult_wet = force.ultrametric(wet_tree)
@@ -74,9 +96,62 @@ wet_node_values = c( wet$pot_loss, fit55 )
 fit56<-fastAnc(ult_wet, wet$osmotic_full)
 wet_node_values = c( wet$osmotic_full, fit56 )
 
-
 w_ggtree = ggtree( ult_wet )
 w_ggtree + 
   geom_tippoint( aes(color=wet_node_values), size=3, alpha=1 ) +
-  geom_nodepoint(  aes(color=wet_node_values), size=3, alpha=1 )+
-  geom_tiplab( fontface = "italic")
+  geom_nodepoint(  aes(color=wet_node_values), size=3, alpha=1 )
+  
+
+#PIC and PGLS
+wet=read.csv("wet.csv", row.names=1)
+Ia = data$IAStot.leaf
+layer = data$Palisade.1
+Pho = data$Amax
+Sav = data$P_SA.V
+len = wet$P_length
+wid = wet$P_width
+thi = wet$P_thick
+rwc = wet$rwc_loss
+tot = wet$VLD_tot
+min = wet$VLD_min
+osm = wet$osmotic_full
+hub = wet$Huber
+area = wet$xylem_area
+diam = wet$xylem_diam
+chl = data$chl.pal
+names(layer)<-names(Pho)<-rownames(data)
+names(Ia)<-rownames(data)
+name.check(vib_ult, data)
+hPic<-pic(layer, vib_ult)
+aPic<-pic(Pho, vib_ult)
+picModel<-lm(hPic~aPic-1)
+summary(picModel)
+plot(hPic~aPic)
+abline(a=0, b=coef(picModel))
+
+iPic<-pic(Ia, vib_ult)
+pic2Model<-lm(iPic~hPic-1)
+summary(pic2Model)
+plot(iPic~hPic)
+oPic<-pic(osm, wet_tree)
+bPic<-pic(layer, wet_tree)
+pic3Model<-lm(oPic~bPic-1)
+summary(pic3Model)
+plot(oPic~bPic)
+abline(a=0, b=coef(picModel))
+
+pglsModel3<-gls(Sav~Ia*len*layer*wid*thi, correlation=corBrownian(phy=vib_ult), data=, method="ML")
+anova(pglsModel3)
+pglsModel15<-gls(rwc~layer*min*Pho*Sav, correlation=corBrownian(phy=vib_ult), data=, method="ML")
+anova(pglsModel15)
+pglsModel16<-gls(Ia~layer*Pho*chl*Sav, correlation=corBrownian(phy=vib_ult), data=, method="ML")
+anova(pglsModel16)
+kable(anova(pglsModel16))
+
+#threshold model for correlation between raits
+sample<-500
+ngen<-2e+05
+burnin<-.2*ngen
+dd<-cbind(wet$Palisade.1,wet$VLD_tot)
+row.names(dd)<-row.names(wet)
+aa<-threshBayes(wet_tree, dd, types = c("disc", "cont"), ngen = ngen, control = list(sample=sample))
