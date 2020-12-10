@@ -11,7 +11,7 @@ vib_tree = reroot(vib_tree, 40)
 plot(vib_tree)
 vib_ult = force.ultrametric(vib_tree)
 
-state<-(c("H","I")[rep(c(1,2,1,1,2,1,1,1,1,2,1,2,2,1,2,1,1,1,1,1,1,1,2,2,1,2,2,1,2,1,2,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,2,2,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1))]);names(state)<-vib_ult$tip.label
+state<-(c("H","I")[rep(c(1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,2,1,2,2,1,2,1,1,1,1,1,1,1,1,2,2,1,2,2,1,2,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,2,1,1,1,1,1,2,1,2))]);names(state)<-vib_ult$tip.label
 viburnum_tree<-make.simmap(vib_ult,state)
 plotSimmap(viburnum_tree)
 data=read.csv("viburnum_h_data - Copy.csv", row.names=1)
@@ -23,6 +23,7 @@ data5<-data[,c("epid_aba", "epid_ada")]
 data6<-data[,c("VLD_min", "rwc_loss")]
 data7<-data[,c("chl.pal", "Huber")]
 data8<-data[,c("LMA", "Thick")]
+#Amax for LMA, P_sa.v for thick
 data9<-data[,c("xylem_area", "xylem_diam")]
 data10<-data[,c("X3rd_width", "VLD_min")]
 #data11<-data[,c("H_armnum", "H_arml")]
@@ -31,6 +32,7 @@ data13<-data[,c("P_SA.V", "P_thick")]
 data99<-data[,c("VLD_tot", "VLD_min", "pot_loss")]
 data14<-data[,c("P_Ames.A", "S_Ames.A")]
 data15<-data[,c("Palisade.1","Cell_Surf_Area")]
+data16<-data[,c("epid_ada", "xylem_area")]
 
 #fit=mvBM(vib_ult,data$Cell_Surf_Area,model = "BMM")
 mvOU(viburnum_tree, data1)
@@ -43,7 +45,7 @@ mvOU(viburnum_tree, data7)
 mvOU(viburnum_tree, data8)
 mvOU(viburnum_tree, data9)
 mvOU(viburnum_tree, data10)
-mvOU(viburnum_tree, data11)
+#mvOU(viburnum_tree, data11)
 mvOU(viburnum_tree, data12)
 mvOU(viburnum_tree, data13)
 mvOU(viburnum_tree, data14)
@@ -81,11 +83,18 @@ fit44<-fastAnc(vib_Htree, h_data$H_armnum)
 node_values = c( h_data$H_arml, fit45 )
 fit45<-fastAnc(vib_Htree, h_data$H_arml)
 
+h_ult = force.ultrametric(vib_Htree)
 h_ggtree = ggtree( h_ult )
 h_ggtree + 
   geom_tippoint( aes(color=node_values), size=3, alpha=1 ) +
   geom_nodepoint(  aes(color=node_values), size=3, alpha=1 )
 
+state<-(c("1","2")[rep(c(2,2,1,2,2,2,2,2,1,1,1,2,1,2,1,2,1,1,2,2,1,2,1,1,1,1,2,2,2,2,2,2,1,1,2,2,1,1,1,2,1,1,2,1,2,1,2,1,1,1,2,1,1,1,2,1,1,1,1))]);names(state)<-h_ult$tip.label
+viburnum_h_tree<-make.simmap(h_ult,state)
+plotSimmap(viburnum_h_tree)
+data11<-h_data[,c("H_armnum", "H_arml")]
+data44<-h_data[,c("trich_dens", "IAStot.leaf")]
+mvOU(viburnum_h_tree, data11)
 
 #wet only data
 tip4<-c("V_lobophyllum", "V_wrightii", "V_sargentii", "V_sieboldii", "V_furcatum", "V_lentago", "V_setigerum", "V_carlesii", "V_burejaeticum", "V_prunifolium", "V_rufidulum", "V_bracteatum", "V_rafinesquianum", "V_acerifolium", "V_bitchiuense", "V_opulus", "V_veitchii", "V_dilatatum", "V_erosum", "V_dentatum", "V_ichangense", "V_betulifolium", "V_rhytidophyllum", "V_molle", "V_trilobum", "V_hupehense", "V_cassinoides", "V_plicatum", "V_lantana")
@@ -100,7 +109,7 @@ w_ggtree = ggtree( ult_wet )
 w_ggtree + 
   geom_tippoint( aes(color=wet_node_values), size=3, alpha=1 ) +
   geom_nodepoint(  aes(color=wet_node_values), size=3, alpha=1 )
-  
+
 
 #PIC and PGLS
 wet=read.csv("wet.csv", row.names=1)
@@ -149,9 +158,14 @@ anova(pglsModel16)
 kable(anova(pglsModel16))
 
 #threshold model for correlation between raits
+#http://www.phytools.org/eqg2015/threshold.html
 sample<-500
 ngen<-2e+05
 burnin<-.2*ngen
-dd<-cbind(wet$Palisade.1,wet$VLD_tot)
+dd<-cbind(wet$VLD_tot, wet$Palisade)
 row.names(dd)<-row.names(wet)
-aa<-threshBayes(wet_tree, dd, types = c("disc", "cont"), ngen = ngen, control = list(sample=sample))
+aa<-threshBayes(wet_tree, dd, types = c("cont", "disc"), ngen = ngen, control = list(sample=sample))
+mean(aa$par[(burnin/sample+1):nrow(aa$par),"r"])
+plot(aa$par[,"gen"],aa$par[,"logL"],type="l",xlab="generation",ylab="logL")
+plot(density(aa$par[(burnin/sample+1):nrow(aa$par),"r"],bw=.1),xlab="r",main="posterior density for r")
+#0.6449364
