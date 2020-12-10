@@ -1,0 +1,134 @@
+###########
+# SETTINGS #
+############
+
+# output settings
+n_gens       = 1e6
+n_burn       = 5e3
+tune_freq    = 50
+sample_freq  = 50
+use_stoch    = true
+under_prior  = false 
+
+# move/monitor indexes
+mni = 1
+mvi = 1
+
+#########
+# FILES #
+#########
+
+# filenames
+#backbone_fn  = "viburnum.backbone.tre"
+#init_fn      = "viburnum.init.tre"
+#taxa_fn      = "viburnum.taxa.tsv"
+#conn_fn      = "viburnum.area_graph.n" + n_areas
+#range_fn     = "viburnum.range.n"+n_areas+".nex"
+#range_01_fn  = "viburnum.range.n"+n_areas+".01.nex"
+#biome_fn     = "viburnum.biome.n"+n_biomes+".nex"
+#bg_times_fn  = "viburnum.bg.times.txt"
+#mol_fn       = "viburnum.mol.nex"
+#intervals_fn = "viburnum.fossil_intervals.tsv"
+
+########
+# DATA #
+########
+
+# taxa
+taxa = readTaxonData("data/viburnum.taxa.tsv")
+n_taxa = taxa.size()
+n_branches = 2 * n_taxa - 3
+
+# molecular
+dat_mol <- readDiscreteCharacterData("data/viburnum.mol.nex")
+n_parts = dat_mol.size()
+moves    = VectorMoves()
+monitors = VectorMonitors()
+
+#########
+# MODEL #
+#########
+
+# molecular model
+
+clock_mol_base ~ dnLoguniform(1e-6, 1e2)
+clock_mol_base.setValue(1e-3)
+mv[mvi++] = mvScale(clock_mol_base, lambda=0.2, weight=15)
+mv[mvi++] = mvScale(clock_mol_base, lambda=0.5, weight=8)
+mv[mvi++] = mvScale(clock_mol_base, lambda=1.0, weight=2)
+
+n_rate_categories <- 50
+rate_probs <- simplex(rep(1,n_rate_categories))
+step_size = 5
+branch_rate_sd ~ dnExp(1)
+mv[mvi++] = mvScale(branch_rate_sd, lambda=1, weight=2)
+mv[mvi++] = mvScale(branch_rate_sd, lambda=0.2, weight=10)
+branch_rate_mean := ln( clock_mol_base ) - 0.5 * branch_rate_sd^2
+branch_rate_categories := fnDiscretizeDistribution(dnLognormal(branch_rate_mean, branch_rate_sd), n_rate_categories)
+
+for (j in 1:n_branches) {
+    branch_rates_shared[j] ~ dnMixture(branch_rate_categories, rate_probs)
+    mv[mvi++] = mvMixtureAllocation(branch_rates_shared[j], weight=1, delta=step_size)
+}
+
+out_group = clade("V_clemensiae")
+# Prior distribution on the tree topology
+topology ~ dnUniformTopology(taxa, outgroup=out_group)
+
+# Branch length prior
+for (i in 1:n_branches) {
+    br_lens[i] ~ dnExponential(10.0)
+    moves.append( mvScale(br_lens[i]) )
+}
+
+TL := sum(br_lens)
+
+psi := treeAssembly(topology, br_lens)
+mymodel = model(psi)
+
+for (i in 1:n_parts) {
+
+    er[i] ~ dnDirichlet(rep(1., 6))
+    mv[mvi++] = mvSimplexElementScale(er[i], alpha=10., weight=5)
+
+    bf[i] ~ dnDirichlet(rep(1., 4))
+    mv[mvi++] = mvSimplexElementScale(bf[i], alpha=10., weight=5)
+
+    Q[i] := fnGTR(er[i], bf[i])
+
+    alpha[i] ~ dnUniform(0,50)
+    site_rates[i] := fnDiscretizeGamma(alpha[i],alpha[i],4)
+    mv[mvi++] = mvScale(alpha[i], weight=5)
+
+    clock_mol_mult[i] ~ dnGamma(2,2)
+    mv[mvi++] = mvScale(clock_mol_mult[i], weight=5, lambda=0.5)
+    branch_rates[i] := clock_mol_mult[i] * branch_rates_shared
+
+    seq_mol[i] ~ dnPhyloCTMC(tree=psi,
+                          Q=Q[i],
+                          branchRates=branch_rates[i],
+                          siteRates=site_rates[i],
+                          nSites=dat_mol[i].nchar(),
+                          type="DNA")
+
+    seq_mol[i].clamp(dat_mol[i])
+}
+
+# add monitors
+monitors.append( mnScreen(TL, printgen=100) )
+monitors.append( mnFile(psi, filename="output_gtr/viburnum.trees", printgen=10) )
+monitors.append( mnModel(filename="output_gtr/viburnum.log", printgen=10) )
+
+# run the analysis
+mymcmc = mcmc(mymodel, moves, monitors)
+mymcmc.run(generations=10000)
+
+
+# summarize output
+treetrace = readTreeTrace("output_gtr/viburnum.trees", treetype="non-clock")
+# and then get the MAP tree
+map_tree = mapTree(treetrace,"output_gtr/viburnum_map.tre")
+
+
+# you may want to quit RevBayes now
+q()
