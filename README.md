@@ -9,14 +9,12 @@ This question is prompted by a recent study available on bioRxiv on proteome exp
 
 The methods I will use to do this are...
 I will start by gathering protein sequence data on NCBI. I will find a region within Lon protease that has a high consensus with other microbes. 
-A protease I will start with is: Lon. 
-Then, I will gather protein sequence data on NCBI for a chaperone and co-chaperone.
-The chaperone and Co-chaperone I will start with are: GroEL, GroES....
+Then, I will gather protein sequence data on NCBI for a chaperon, GroEL.
 
-For the minimum viable analysis, I will use the ___________ domain protein sequence from Lon protease to run BLAST and search for homologous regions in other proteases in different bacteria. 
+For the minimum viable analysis, I will use the protein sequences for Lon protease and GroEL chaperone to run BLAST and search for homologous regions in other proteases/chaperones in different bacteria. 
 I will upload this data to the Yale computing cluster (Grace), then run IQ-tree to make a phylogenetic tree of the homologous proteases from different bacteria. 
 
-Thus, each edge will represent a specific (homologous) protein region from different bacteria. I will run a bootstrap analysis and label my tree with the bootstrap values. I will also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. 
+Thus, each edge will represent a specific (homologous) protein region from different bacteria. I will also use R to estimate and compare evolutionary rates of time based on the phylogenies I create. 
 
 I will be limited by what is publicly available, but I hope to implement the methods I learn in this project on my own sequence data as my thesis progresses. This will ultimately be sequence data from nearshore bacterial communities in the Long Island Sound. 
 
