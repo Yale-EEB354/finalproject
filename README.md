@@ -62,6 +62,8 @@ The biggest difficulty in implementing these analyses was figuring out how to no
 
 If I did these analyses again, I would include way more bacteria with an outgroup in eukaryota or archaea. I would also couple another characteristic of my bacteria to these proteins. 
 
+*** I did another analysis in which I added lots more taxa to my lon protease phylogeny, including a total of 25 tips and 48 total edges. This helped resolve some of the discrepancies in my phylogeny, although there were still some random E. coli lineages still all over the place. I'm including some of the extra files here. In the future I intend to do further analyses to test the variance between genuses within a phylogeny to see how adding taxa will affect my results. I expect that they will further support the same conclusions that chaperones and proteases have similar evolution rates.
+
 ## References
 
 https://www.biorxiv.org/content/10.1101/2020.06.08.140319v2
