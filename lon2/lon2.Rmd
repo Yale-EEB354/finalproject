@@ -1,0 +1,86 @@
+---
+title: "Lon 2nd analysis"
+output: html_document
+---
+
+```{r setup, echo = FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ape)
+library(phytools)
+library(ggtree)
+```
+
+```{r fig.width=5, fig.height=5}
+#create a tree using the fasta treefile of aligned lon protease sequences
+lon2.phy = read.tree("lon2.aligned.fasta.treefile")
+
+#in order to have comparable phylogenies, drop tips that aren't in GroEL phylo
+#lon.phy.reduced = drop.tip( lon.phy, c("Meiothermus_taiwanensis_4YPL_A", "Bacillus_subtilis_3M6A_A", "Yersinia_pestis_6ON2_A", "Yersinia_pestis_6V11_A", "Escherichia_coli_6U5Z_A") )
+
+#root tree with E. coli strain 6N2I A
+rooted.lon = root(lon2.phy, "Escherichia_coli_6N2I_A", resolve.root = TRUE)
+
+#make ultrametric
+lon.ultra = force.ultrametric(rooted.lon)
+
+plot(lon.ultra)
+edgelabels(lon.ultra$edge.length)
+
+```
+
+```{r fig.width=7, fig.height=5}
+
+#create a tree using the fasta treefile of aligned groel sequences
+#groel.phy = read.tree("groel.aligned.fasta.treefile")
+
+#drop 1 e coli so that the other e coli can be an outgroup
+#groel.phy.reduced = drop.tip( groel.phy, c("Escherichia_coli_4PKN_A") )
+
+#root the tree with E. coli strain K-12 5OPX A
+#rooted.groel = root(groel.phy.reduced, "Escherichia_Coli_K-12_5OPX_A")
+
+#make ultrametric
+#groel.ultra = force.ultrametric(rooted.groel)
+
+#plot(groel.ultra)
+#edgelabels(groel.ultra$edge.length)
+#edgelabels()
+```
+
+```{r}
+lon.ultra$edge.length
+#groel.ultra$edge.length
+
+is.rooted(rooted.lon)
+#is.rooted(rooted.groel)
+
+```
+
+
+```{r}
+phytable = read.csv(file = "Lon2.EdgeLengths.csv", header = TRUE, sep = ",")
+phytable
+#f test to see statistical difference between edge lengths and take variance of groups into account
+#var.test(phytable$EL..EL.of.outgroup ~ phytable$phylogeny)
+phylANOVA(lon.ultra, phytable$phylogeny, phytable$EL..EL.of.outgroup, posthoc = TRUE)
+
+
+```
+```{r}
+
+#phytable = read.csv(file = "Lon2.EdgeLengths.csv", header = TRUE, sep = ",")
+#phytable
+#t test to see statistical difference between edge lengths and take variance between groups
+#t.test(phytable$A, phytable$B, phytable$C,  phytable$E,  phytable$E,  phytable$F, phytable$G)
+
+
+```
+
+
+
+
+
+
+
+

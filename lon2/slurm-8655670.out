@@ -1,0 +1,52 @@
+nthread = 0
+nthreadpair = 0
+nthreadtb = 0
+ppenalty_ex = 0
+stacksize: -1 kb
+rescale = 1
+Gap Penalty = -1.53, +0.00, +0.00
+
+
+
+Making a distance matrix ..
+
+There are 16 ambiguous characters.
+    1 / 25
+done.
+
+Constructing a UPGMA tree (efffree=0) ... 
+    0 / 25   10 / 25   20 / 25
+done.
+
+Progressive alignment 1/2... 
+STEP     1 / 24  fSTEP     2 / 24  fSTEP     3 / 24  fSTEP     4 / 24  fSTEP     5 / 24  fSTEP     6 / 24  fSTEP     7 / 24  fSTEP     8 / 24  fSTEP     9 / 24  fSTEP    10 / 24  fSTEP    11 / 24  fSTEP    12 / 24  fSTEP    13 / 24  fSTEP    14 / 24  fSTEP    15 / 24  dSTEP    16 / 24  dSTEP    17 / 24  dSTEP    18 / 24  fSTEP    19 / 24  dSTEP    20 / 24  dSTEP    21 / 24  dSTEP    22 / 24  dSTEP    23 / 24  d hSTEP    24 / 24  d h
+done.
+
+Making a distance matrix from msa.. 
+    0 / 25
+done.
+
+Constructing a UPGMA tree (efffree=1) ... 
+    0 / 25   10 / 25   20 / 25
+done.
+
+Progressive alignment 2/2... 
+STEP     1 / 24  fSTEP     2 / 24  fSTEP     3 / 24  fSTEP     4 / 24  fSTEP     5 / 24  fSTEP     6 / 24  fSTEP     7 / 24  fSTEP     8 / 24  fSTEP     9 / 24  fSTEP    10 / 24  fSTEP    11 / 24  fSTEP    12 / 24  fSTEP    13 / 24  fSTEP    14 / 24  fSTEP    15 / 24  fSTEP    16 / 24  fSTEP    17 / 24  fSTEP    18 / 24  dSTEP    19 / 24  fSTEP    20 / 24  dSTEP    21 / 24  dSTEP    22 / 24  dSTEP    23 / 24  d hSTEP    24 / 24  d h
+done.
+
+disttbfast (aa) Version 7.429
+alg=A, model=BLOSUM62, 1.53, -0.00, -0.00, noshift, amax=0.0
+0 thread(s)
+
+
+Strategy:
+ FFT-NS-2 (Fast but rough)
+ Progressive method (guide trees were built 2 times.)
+
+If unsure which option to use, try 'mafft --auto input > output'.
+For more information, see 'mafft --help', 'mafft --man' and the mafft page.
+
+The default gap scoring scheme has been changed in version 7.110 (2013 Oct).
+It tends to insert more gaps into gap-rich regions than previous versions.
+To disable this change, add the --leavegappyregion option.
+
