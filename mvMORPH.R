@@ -72,7 +72,8 @@ x = cbind(data$Amax, data$P_SA.V)
 #names(x)<-rownames(data)
 #phenogram(vib_ult,x,fsize=0.6,spread.costs=c(1,0))
 phylomorphospace(vib_ult, x)
-
+y = cbind(data$IAStot.leaf, data$Palisade.1)
+phylomorphospace(vib_ult, y)
 
 #h only data
 tip3<-c("V_davidii", "V_lentago", "V_carlesii", "V_elatum", "V_burejaeticum", "V_prunifolium", "V_bitchiuense", "V_propinquum", "V_utile", "V_cotinifolium", "V_veitchii", "V_clemensiae", "V_tinus", "V_macrocephalum", "V_rhytidophyllum", "V_cassinoides", "V_punctatum", "V_lantana", "V_cinnamomifolium", "V_cassinoides")
@@ -114,12 +115,12 @@ w_ggtree +
 #PIC and PGLS
 wet=read.csv("wet.csv", row.names=1)
 Ia = data$IAStot.leaf
-layer = data$Palisade.1
+layer = wet$Palisade.1
 Pho = data$Amax
 Sav = data$P_SA.V
 len = wet$P_length
 wid = wet$P_width
-thi = wet$P_thick
+thi = data$P_thick
 rwc = wet$rwc_loss
 tot = wet$VLD_tot
 min = wet$VLD_min
@@ -169,3 +170,14 @@ mean(aa$par[(burnin/sample+1):nrow(aa$par),"r"])
 plot(aa$par[,"gen"],aa$par[,"logL"],type="l",xlab="generation",ylab="logL")
 plot(density(aa$par[(burnin/sample+1):nrow(aa$par),"r"],bw=.1),xlab="r",main="posterior density for r")
 #0.6449364
+
+cool<-data[,c(5:36)]
+cool<-cool[,c(-1,-2,-11,-15:-17,-19:-36)]
+pca<-prcomp(cool)
+screeplot(pca, type = "l")
+biplot(pca)
+neat<-wet[,c(23:36)]
+neat<-neat[,c(-11)]
+pca1<-prcomp(neat)
+screeplot(pca, type = "l")
+biplot(pca1)
