@@ -182,6 +182,7 @@ screeplot(pca, type = "l")
 biplot(pca)
 neat<-wet[,c(23:36)]
 neat<-neat[,c(-11)]
+neat<-neat[-16,]
 pca1<-prcomp(neat)
-screeplot(pca, type = "l")
+screeplot(pca1, type = "l")
 biplot(pca1)
