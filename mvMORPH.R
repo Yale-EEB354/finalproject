@@ -72,8 +72,12 @@ x = cbind(data$Amax, data$P_SA.V)
 #names(x)<-rownames(data)
 #phenogram(vib_ult,x,fsize=0.6,spread.costs=c(1,0))
 phylomorphospace(vib_ult, x)
-y = cbind(data$IAStot.leaf, data$Palisade.1)
+y = cbind(data$IAStot.leaf, data$chl.pal)
 phylomorphospace(vib_ult, y)
+z = cbind(wet$P_SA.V, wet$VLD_tot)
+phylomorphospace(ult_wet, z)
+q = cbind(h_data$H_armnum, h_data$Palisade.1)
+phylomorphospace(vib_Htree, q)
 
 #h only data
 tip3<-c("V_davidii", "V_lentago", "V_carlesii", "V_elatum", "V_burejaeticum", "V_prunifolium", "V_bitchiuense", "V_propinquum", "V_utile", "V_cotinifolium", "V_veitchii", "V_clemensiae", "V_tinus", "V_macrocephalum", "V_rhytidophyllum", "V_cassinoides", "V_punctatum", "V_lantana", "V_cinnamomifolium", "V_cassinoides")
