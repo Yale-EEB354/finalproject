@@ -33,6 +33,9 @@ data99<-data[,c("VLD_tot", "VLD_min", "pot_loss")]
 data14<-data[,c("P_Ames.A", "S_Ames.A")]
 data15<-data[,c("Palisade.1","Cell_Surf_Area")]
 data16<-data[,c("epid_ada", "xylem_area")]
+data17<-data[,c("layer_num", "Cell_Surf_Area")]
+data18<-data[,c("stomata_density", "guard_cell")]
+data19<-data[,c("chromosome_count_likely", "Cell_Volume")]
 
 #fit=mvBM(vib_ult,data$Cell_Surf_Area,model = "BMM")
 mvOU(viburnum_tree, data1)
@@ -50,6 +53,9 @@ mvOU(viburnum_tree, data12)
 mvOU(viburnum_tree, data13)
 mvOU(viburnum_tree, data14)
 mvOU(viburnum_tree, data15)
+mvOU(viburnum_tree, data17)
+mvOU(viburnum_tree, data18)
+mvOU(viburnum_tree, data19)
 
 #ancestral state reconstruction
 fit<-fastAnc(vib_ult, data$Amax)
@@ -60,12 +66,22 @@ fit5<-fastAnc(vib_ult, data$epid_ada)
 fit6<-fastAnc(vib_ult, data$chl.pal)
 fit7<-fastAnc(vib_ult, data$IAStot.leaf)
 fit8<-fastAnc(vib_ult, data$S_Ames.A)
-node_values = c( data$S_Ames.A, fit8)
+
+node_values = c( data$genome_size_Gbp, fit9)
 
 vib_ggtree = ggtree( vib_ult )
 vib_ggtree + 
   geom_tippoint( aes(color=node_values), size=3, alpha=1 ) +
   geom_nodepoint(  aes(color=node_values), size=3, alpha=1 )
+
+##genome
+
+tippy<-c("V_taiwanianum", "V_luzonicum", "V_vernicosum", "V_hispidulum", "V_inopinatum", "V_taitoense", "V_loeseneri", "V_elatum", "V_tashiroi", "V_amplificatum", "V_clemensiae", "V_beccarii", "V_costaricanum", "V_stellato_tomentosum", "V_sambucinum", "V_awabuki", "V_integrifolium", "V_discolor", "V_mullaha", "V_formosanum", "V_coriaceum", "V_disjunctum", "V_corylifolium", "V_japonicum", "V_lutescens")
+chrom<-drop.tip(vib_tree, tippy)
+chrom_data=read.csv("chrom_data.csv", row.names=1)
+fit9<-fastAnc(chrom, chrom_data$chromosome_count_likely)
+node_vales = c(chrom_data$chromosome_count_likely, fit9)
+
 
 #cool drawing stuff
 x = cbind(data$Amax, data$P_SA.V)
@@ -94,7 +110,7 @@ h_ggtree +
   geom_tippoint( aes(color=node_values), size=3, alpha=1 ) +
   geom_nodepoint(  aes(color=node_values), size=3, alpha=1 )
 
-state<-(c("1","2")[rep(c(2,2,1,2,2,2,2,2,1,1,1,2,1,2,1,2,1,1,2,2,1,2,1,1,1,1,2,2,2,2,2,2,1,1,2,2,1,1,1,2,1,1,2,1,2,1,2,1,1,1,2,1,1,1,2,1,1,1,1))]);names(state)<-h_ult$tip.label
+state<-(c("1","2")[rep(c(1,1,1,1,2,1,1,1,2,1,1,1,2,1,2,1,2,1,1,2,1,1,1,2,2,1,1,2,2,2,2,2,2,1,1,1,1,2,1,2,2,1,1,2,1,2,1,2,1,1,1,2,2,2,2,2,1,2,2))]);names(state)<-h_ult$tip.label
 viburnum_h_tree<-make.simmap(h_ult,state)
 plotSimmap(viburnum_h_tree)
 data11<-h_data[,c("H_armnum", "H_arml")]
@@ -186,3 +202,27 @@ neat<-neat[-16,]
 pca1<-prcomp(neat)
 screeplot(pca1, type = "l")
 biplot(pca1)
+
+
+#syzygium project
+tip3<-c("V_blandum", "V_adenophorum", "V_tengyuehense", "V_lepidotulum", "V_obovatum", "V_brevipes", "V_microphyllum", "V_kansuense", "Valvatotinus_NWT", "V_obtectum", "V_maculatum", "V_scabrellum", "V_ayavacense", "V_calvum", "V_divaricatum", "V_ellipticum", "V_oliganthum", "V_edule", "V_villosum", "V_australe", "V_toronis", "V_hebanthum", "V_nudum", "V_colebrookeanum", "V_obtusatum", "V_stipitatum", "V_valvatotinus_IS", "V_shweliense", "V_treleasei", "V_chunii", "V_garrettii", "V_rigidum", "V_rigidum", "V_orientale", "V_ciliatum", "V_microcarpum", "V_dalzielii", "V_longiradiatum", "V_brevitubum", "V_wardii", "V_sulcatum")
+tip4<-c("V_jamesonii", "Valvatotinus_PB", "Viburnum_BC", "V_yunnanense", "V_koreanum", "V_seemenii", "V_hondurense", "V_venustum", "V_caudatum", "Porphyrotinus_CO", "V_corymbiflorum", "V_junghunii", "V_hainanense", "Valvatotinus_IS", "V_bracteatum")
+part3 = drop.tip(vib_tree, tip3)
+part4 = drop.tip(part3, tip4)
+epi_tree = drop.tip(part4, "V_lancifolium")
+epi_tree = reroot(epi_tree, 57)
+epi_ult = force.ultrametric(epi_tree)
+epi = read.csv("vib_epi_trait.csv", row.names=1)
+epi22 = read.csv("vib_epi_small.csv", row.names=1)
+small <- drop.tip(viburnum_tree, "V_bracteatum")
+state<-(c("H","I")[rep(c(1,1,1,1,2,1,1,2,1,1,1,1,1,2,2,1,2,1,1,1,2,2,1,1,1,1,2,1,2,2,2,1,2,2,1,1,1,2,1,1,1,1,1,1,2,2,1,2,2,1,2,2,2,1,1,1,2,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,2,2,1,1,2,2,1,1,1,1,1,2,1,2))]);names(state)<-epi_ult$tip.label
+epidermis_tree<-make.simmap(epi_ult,state)
+plotSimmap(epidermis_tree)
+
+try<-epi22[,c("Lamina.adaxial.epidermal.cells.dimension","Lamina.abaxial.epidermis.cells.shape")]
+epi1<-epi22[,c("Lam_adaxial_epidermal", "Lam_abaxial_epidermis")]
+epi2<-epi22[,c("Adaxial_midrib", "Lam_abaxial_epidermis")]
+epi3<-epi22[,c("Abaxial_midrib", "Vascular_shape")]
+mvOU(small, epi1)
+mvOU(small, epi2)
+mvOU(small, epi3)
