@@ -36,6 +36,9 @@ data16<-data[,c("epid_ada", "xylem_area")]
 data17<-data[,c("layer_num", "Cell_Surf_Area")]
 data18<-data[,c("stomata_density", "guard_cell")]
 data19<-data[,c("chromosome_count_likely", "Cell_Volume")]
+data20<-data[,c("mean_leaf_lifespan", "LMA")]
+data20<-data[,c("inflorescence_mass", "Huber")]
+data21<-data[,c("avg_vein_angle", "xylem_area")]
 
 #fit=mvBM(vib_ult,data$Cell_Surf_Area,model = "BMM")
 mvOU(viburnum_tree, data1)
@@ -56,6 +59,8 @@ mvOU(viburnum_tree, data15)
 mvOU(viburnum_tree, data17)
 mvOU(viburnum_tree, data18)
 mvOU(viburnum_tree, data19)
+mvOU(viburnum_tree, data20)
+mvOU(viburnum_tree, data21)
 
 #ancestral state reconstruction
 fit<-fastAnc(vib_ult, data$Amax)
@@ -178,7 +183,7 @@ pglsModel16<-gls(Ia~layer*Pho*chl*Sav, correlation=corBrownian(phy=vib_ult), dat
 anova(pglsModel16)
 kable(anova(pglsModel16))
 
-#threshold model for correlation between raits
+#threshold model for correlation between traits
 #http://www.phytools.org/eqg2015/threshold.html
 sample<-500
 ngen<-2e+05
@@ -226,3 +231,28 @@ epi3<-epi22[,c("Abaxial_midrib", "Vascular_shape")]
 mvOU(small, epi1)
 mvOU(small, epi2)
 mvOU(small, epi3)
+
+############
+#M. Khabbazian, R. Kriebel, K. Rohe, and Cécile Ané. Fast and accurate detection of evolutionary shifts in Ornstein-Uhlenbeck models. Methods in Ecology and Evolution, 7(7):811-824. doi:10.1111/2041-210X.12534
+library(l1ou)
+palisade = estimate_shift_configuration(vib_ult, data$Palisade.1)
+IA = estimate_shift_configuration(vib_ult, data$IAStot.leaf)
+chloro = estimate_shift_configuration(vib_ult, data$chl.pal)
+get_shift_configuration(chloro, 3)
+plot(chloro, edge.shift.ann = TRUE)
+
+xy_area = estimate_shift_configuration(ult_wet, wet$xylem_area)
+xy_diam = estimate_shift_configuration(ult_wet, wet$xylem_diam)
+rwcs = estimate_shift_configuration(ult_wet, wet$rwc_loss)
+osms = estimate_shift_configuration(ult_wet, wet$osmotic_full)
+tots = estimate_shift_configuration(ult_wet, wet$VLD_tot)
+mins = estimate_shift_configuration(ult_wet, wet$VLD_min)
+
+#########
+#Keck, F., Rimet, F., Bouchez, A. and Franc, A. (2016), phylosignal: an R package to measure, test, and explore the phylogenetic signal. Ecol Evol, 6: 2774-2780. https://doi.org/10.1002/ece3.2051
+library(phylosignal)
+one = read.csv("vib_phylosignal.csv")
+signal = phylo4d(vib_tree, one)
+correl = phyloCorrelogram(signal, trait = "Palisade")
+xylem = phyloCorrelogram(signal, trait = "IAStot.leaf")
+chlpl = phyloCorrelogram(signal, trait = "chl.pal")
