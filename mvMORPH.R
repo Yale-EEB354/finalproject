@@ -256,3 +256,39 @@ signal = phylo4d(vib_tree, one)
 correl = phyloCorrelogram(signal, trait = "Palisade")
 xylem = phyloCorrelogram(signal, trait = "IAStot.leaf")
 chlpl = phyloCorrelogram(signal, trait = "chl.pal")
+
+###### pca for directions in evolution
+#https://www.researchgate.net/profile/Michael_Collyer2/publication/344900621_Phylogenetically_Aligned_Component_Analysis/links/5fa4123b458515157bec1bcb/Phylogenetically-Aligned-Component-Analysis.pdf 
+h = h_data[,c(1:13,15:17,19:21)]
+#nocellvolume
+h2 = h_data[,c(1:3,6:13,15:17)]
+#added arms
+h3 = h_data[,c(1:3,6:13,15:17,19:21)]
+hpca = prcomp(h)
+screeplot(hpca, type = "l")
+biplot(hpca)
+biplot(hpca, xlabs = rep("",nrow(h)))
+h2pca = prcomp(h2)
+biplot(h2pca)
+h3pca = prcomp(h3)
+biplot(h3pca)
+
+i_only = read.csv("i_only.csv", row.names=1)
+tiny_i = read.csv("tiny_i_only.csv", row.names=1)
+i = i_only[,c(1:3,6:13,16:19)]
+ipca = prcomp(i)
+screeplot(hpca,type = "l")
+biplot(ipca)
+#with cell volume
+i2 = tiny_i[,c(1:13,16:19)]
+i2pca = prcomp(i2)
+biplot(i2pca)
+
+wet_i = read.csv("wet_i.csv", row.names=1)
+wet_h = read.csv("wet_h.csv", row.names=1)
+wh = wet_h[,c(7:14,16:19,22:30,34:36)]
+whpca = prcomp(wh)
+biplot(whpca)
+wi = wet_i[,c(7:14,16:19,22:30,34:36)]
+wipca = prcomp(wi)
+biplot(wipca)
