@@ -25,15 +25,21 @@ Some guidelines and tips:
 
 OK, here we go.
 
-# Title of my project
+# Plethodontidae Forelimb Morphology
 
 ## Introduction and Goals
 
-The goal of my project is to answer the question, What is...?
+For my final project, I plan to focus on salamanders in the family Plethodontidae. This family exhibits two feeding types, both of which involve tongue projection: muscle-powered feeding and spring-powered feeding. Spring-powered tongue projection, which relies on stored elastic energy, is comparatively more forceful than muscle-powered feeding (Scales 2020). In addition to these two feeding classes, some salamanders perform a forward lunge in tandem with tongue projection (Wake & Deban 2000). It is hypothesized that this forward lunge may provide additional power or accuracy to tongue projection, but this has not yet been confirmed.
 
-The methods I will use to do this are...
+I spent the summer working in the Peabody Collections studying preserved salamander specimens. My research was focused on salamander forelimb architecture. I predicted that muscle-powered feeders may have forelimb structure that is better-optimized for forward lunges. In this sense, the forward lunge may be a compensatory mechanism for less powerful feeders. 
 
-The data I will use are (my own data/ data publicly available at YYY/ simulations)
+To visualize differences in forelimb skeletal structure, I segmented ~25 different taxa within the family. Specifically, I focused on the scapula, humerus, radius, and ulna. To quantify differences in trait values, I plan to use a geometric morphometrics program developed by Dr. Zachary Morris. Therefore, I will be using my own data.
+
+The goal of my project is to determine how forelimb morphology has evolved in Plethodontidae salamanders. Because I plan to use geometric morphometrics, I think it makes sense to build a separate tree based on each morphological data point. Ideally, I could then combine these trees into a maximum likelihood tree that would capture the continuous transition between morphological characters as a whole. We haven't learned much yet about mapping continuous traits onto trees, so I hope to use methods discussed in chapter 8 to execute this plan.
+
+Ultimately, I would like to compare the evolutionary transition of forelimb morphology to the appearance of spring-powered or muscle-powered feeding. With this comparison, it may become evident if natural selection is acting on optimized forelimb morphology for muscle-powered feeders, making the weakest feeders the best lungers.
+
+This is part of a larger project that I plan to present at SICB 2023.
 
 ## Methods
 
@@ -53,3 +59,6 @@ If I did these analyses again, I would...
 
 ## References
 
+Scales, J., Bloom, S.V., & Deban, S.M. (2020). Convergently evolved muscle architecture enables high-performance ballistic movement in salamanders. J. Morphol. 281: 196-212. https://onlinelibrary.wiley.com/doi/am-pdf/10.1002/jmor.21091
+
+Wake, D. & Deban, S.M. (2000). Terrestrial Feeding in Salamanders. FEEDING (pp. 95-116). https://www.researchgate.net/publication/258324922_Terrestrial_Feeding_in_Salamanders
